@@ -1,0 +1,196 @@
+[11/10/2026 10:18 PM] Ahm: <!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>رفقاء إلى الجنة ❤️</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#faf8f1;color:#20332d;font-family:Tahoma,Arial,sans-serif}
+header{background:linear-gradient(135deg,#103b32,#26745d);color:white;padding:35px 20px;text-align:center;border-radius:0 0 28px 28px}
+header h1{font-size:28px;margin:10px}
+header p{line-height:1.8;color:#e2eee6}
+main{max-width:650px;margin:20px auto;padding:0 14px}
+.card{background:white;border:1px solid #e5e9e2;border-radius:18px;padding:18px;margin-bottom:15px;box-shadow:0 4px 15px #00000008}
+h2{font-size:18px;color:#174d3e}
+select{padding:10px;border:1px solid #ddd;border-radius:10px;width:100%;margin:8px 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{background:#e8f2ec;padding:14px 5px;text-align:center;border-radius:13px}
+.stat strong{display:block;font-size:22px;color:#175440}
+.stat span{font-size:11px}
+.task{display:flex;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid #eee}
+.task input{width:20px;height:20px;accent-color:#175440}
+.task label{font-size:14px;line-height:1.7}
+.progress{height:9px;background:#eee;border-radius:20px;margin:12px 0;overflow:hidden}
+.bar{height:100%;background:#26745d;width:0%;transition:.3s}
+button{border:0;background:#174d3e;color:white;padding:12px 16px;border-radius:11px;cursor:pointer;font-size:14px}
+.secondary{background:#e8f2ec;color:#174d3e}
+.people{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.person{background:#f4f8f4;padding:14px;border-radius:13px;text-align:center}
+.person strong{display:block;font-size:22px;color:#175440}
+.note{font-size:12px;color:#718078;line-height:1.8}
+footer{text-align:center;color:#718078;padding:20px;font-size:12px}
+</style>
+</head>
+<body>
+
+<header>
+<div>🌿 تحدي الخير والمحبة</div>
+<h1>رفقاء إلى الجنة ❤️</h1>
+<p>أنا وأنت في طريق واحد... نتسابق في الطاعة ونساعد بعض على رضا الله.</p>
+</header>
+
+<main>
+
+<section class="card">
+<h2>🌙 مين بيتابع التحدي؟</h2>
+<select id="person">
+<option value="ahmed">أحمد</option>
+<option value="heba">هبة</option>
+</select>
+<div class="stats">
+<div class="stat"><strong id="done">0</strong><span>مهام مكتملة</span></div>
+<div class="stat"><strong id="percent">0%</strong><span>نسبة الإنجاز</span></div>
+<div class="stat"><strong id="points">0</strong><span>نقاط اليوم</span></div>
+</div>
+<div class="progress"><div class="bar" id="bar"></div></div>
+<p class="note" id="message">ابدأ يومك بنية صالحة ❤️</p>
+</section>
+
+<section class="card">
+<h2>📖 تحدي اليوم</h2>
+<div id="tasks"></div>
+</section>
+
+<section class="card">
+<h2>🤝 إنجازنا مع بعض</h2>
+<div class="people">
+<div class="person">
+أحمد
+<strong id="ahmed">0%</strong>
+<span class="note">إنجاز اليوم</span>
+</div>
+<div class="person">
+هبة
+<strong id="heba">0%</strong>
+<span class="note">إنجاز اليوم</span>
+</div>
+</div>
+<p class="note">مش مهم مين سبق التاني، المهم إننا نقرب من ربنا سوا.</p>
+</section>
+
+<section class="card">
+<h2>🤲 دعاء اليوم</h2>
+<p id="dua">اللهم أعنّا على ذكرك وشكرك وحسن عبادتك.</p>
+<button class="secondary" onclick="changeDua()">دعاء آخر</button>
+</section>
+
+<section class="card">
+<h2>💌 رسالة لهبة</h2>
+<p>نفسي نكون عون لبعض على الطاعة، ونفكر بعض بالخير، ونبني بيت أساسه رضا ربنا والمودة والرحمة. ❤️</p>
+</section>
+
+<section class="card">
+<h2>🔄 نقل التقدم بين الجهازين</h2>
+<p class="note">يمكن تصدير البيانات من جهاز واستيرادها على الجهاز الآخر. المزامنة التلقائية تحتاج قاعدة بيانات سحابية.</p>
+<button onclick="exportData()">تحميل نسخة من التقدم</button>
+<button class="secondary" onclick="document.getElementById('file').click()">استيراد التقدم</button>
+<input id="file" type="file" accept=".json" hidden onchange="importData(event)">
+</section>
+
+</main>
+
+<footer>اللهم اجعلنا عونًا لبعض على طاعتك ❤️</footer>
+
+<script>
+const habits=[
+"المحافظة على الصلوات الخمس",
+"قراءة صفحة من القرآن الكريم",
+"أذكار الصباح والمساء",
+"100 مرة استغفار",
+"سماع درس ديني مفيد",
+"صدقة أو عمل خير",
+"ركعتان قيام ليل حسب الاستطاعة"
+];
+[11/10/2026 10:18 PM] Ahm: const storageKey="rufaqa_app_data";
+let data=JSON.parse(localStorage.getItem(storageKey)||'{"ahmed":{},"heba":{}}');
+let current="ahmed";
+
+function dateKey(){
+ return new Date().toLocaleDateString("en-CA");
+}
+function today(){
+ return data[current][dateKey()]||[];
+}
+function save(){
+ localStorage.setItem(storageKey,JSON.stringify(data));
+ render();
+}
+function toggleTask(i,checked){
+ let arr=today().filter(x=>x!==i);
+ if(checked)arr.push(i);
+ data[current][dateKey()]=arr;
+ save();
+}
+function render(){
+ current=document.getElementById("person").value;
+ let done=today();
+ document.getElementById("tasks").innerHTML=habits.map((h,i)=>
+ <div class="task">
+ <input type="checkbox" id="task${i}" ${done.includes(i)?"checked":""}
+ onchange="toggleTask(${i},this.checked)">
+ <label for="task${i}">${h}</label>
+ </div>).join("");
+
+ let percent=Math.round(done.length/habits.length*100);
+ document.getElementById("done").textContent=done.length;
+ document.getElementById("percent").textContent=percent+"%";
+ document.getElementById("points").textContent=done.length*10;
+ document.getElementById("bar").style.width=percent+"%";
+ document.getElementById("message").textContent=
+ percent===100?"ما شاء الله! أتممت تحدي اليوم 🌟":"كل خطوة خير تقربك من الله.";
+
+ document.getElementById("ahmed").textContent=score("ahmed")+"%";
+ document.getElementById("heba").textContent=score("heba")+"%";
+}
+function score(p){
+ let arr=data[p][dateKey()]||[];
+ return Math.round(arr.length/habits.length*100);
+}
+function changeDua(){
+ let duas=[
+ "اللهم أعنّا على ذكرك وشكرك وحسن عبادتك.",
+ "ربنا هب لنا من أزواجنا وذرياتنا قرة أعين.",
+ "اللهم اجعل قلوبنا معلقة بك.",
+ "اللهم ارزقنا الإخلاص والثبات وحسن العمل.",
+ "ربنا تقبل منا إنك أنت السميع العليم."
+ ];
+ document.getElementById("dua").textContent=
+ duas[Math.floor(Math.random()*duas.length)];
+}
+function exportData(){
+ let blob=new Blob([JSON.stringify(data)],{type:"application/json"});
+ let a=document.createElement("a");
+ a.href=URL.createObjectURL(blob);
+ a.download="rufaqa-progress.json";
+ a.click();
+ URL.revokeObjectURL(a.href);
+}
+function importData(e){
+ let f=e.target.files[0];
+ if(!f)return;
+ let reader=new FileReader();
+ reader.onload=()=>{
+ try{
+ let obj=JSON.parse(reader.result);
+ if(!obj.ahmed||!obj.heba)throw Error();
+ data=obj;save();alert("تم استيراد التقدم بنجاح");
+ }catch(err){alert("الملف غير صالح");}
+ };
+ reader.readAsText(f);
+}
+document.getElementById("person").addEventListener("change",render);
+render();
+</script>
+</body>
+</html>
